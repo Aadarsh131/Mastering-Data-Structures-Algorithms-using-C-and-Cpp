@@ -49,7 +49,7 @@ int main(){
 
 
 
-#### The recursion call would something like this-
+### The recursion call would look something like this-
 <img src='./resources/recursionTree.jpg'>
 
 
