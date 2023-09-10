@@ -6,15 +6,15 @@
 ## Some recursion problem with solution
 ### 1. Factorial using recursion
 
-> - n! = (n-1)! * n
->
-> -   $
+> $$n! = {(n-1)}! \times n $$
+
+> $$
 >f(n) =
 >  \begin{cases}
 >    1       & \quad \text{if, } n \text{ = 1}\\
->    f(n-1) * n  & \quad \text{if, } n \text{ > 1}
+>    f(n-1) n  & \quad \text{if, } n \text{ > 1}
 >  \end{cases}
->$
+>$$
 
 ```cpp
 #include <iostream>
@@ -34,14 +34,15 @@ int main()
 }
 ```
 ### 2. Power of a number
-> - m<sup>n</sup> = m<sup>(n-1)</sup> * m
-> -   $
->f(n) =
+<!-- >  m<sup>n</sup> = m<sup>(n-1)</sup> * m   -->
+> $$m^n = m ^ {(n-1)} \times m $$
+
+> $$f(n) =
 >  \begin{cases}
 >    1       & \quad \text{if, } n \text{ = 0}\\
->    f(n-1) * m  & \quad \text{if, } n \text{ > 0}
+>    f(n-1) m  & \quad \text{if, } n \text{ > 0}
 >  \end{cases}
->$
+>$$
 
 ```cpp
 #include <iostream>
@@ -62,8 +63,8 @@ int main()
 ```
 
 ### 3. Taylor series
- >$$e^x = 1 +  \frac{x}{1}+\frac{x^2}{2!}+\frac{x^3}{3!}+ ....\frac{x^n}{n!}$$
->
+ >$$e^x = 1 +  \frac{x}{1}+\frac{x^2}{2!}+\frac{x^3}{3!}+ \dots \frac{x^n}{n!}$$
+
 >$$f(n) = f(n-1) + \frac{x^n}{n!}$$
 > **NOTE:** higher the value of `n`, higher the precision
 
