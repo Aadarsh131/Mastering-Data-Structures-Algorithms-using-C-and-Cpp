@@ -131,3 +131,61 @@ int main()
     return 0;
 }
 ```
+### 4. Fibonacci series
+
+>|f(n) | 0   | 1   | 1   | 2   | 3   | 5   | 8   | 13 ... |
+> | ----- | --- | --- | --- | --- | --- | --- | --- | ------ |
+>| n      | 0   | 1   | 2   | 3   | 4   | 5   | 6   | 7 ...  |
+
+> $$f(n) =
+>  \begin{cases}
+>    0       & \quad \text{if, } n = 0\\
+>    1       & \quad \text{if, } n = 1\\
+>    f(n-1) + f(n-2)  & \quad \text{if, } n \text{ > 1}
+>  \end{cases}
+>$$
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int fib(int n){
+    if(n<=1){
+        return n;
+    }
+    return fib(n-1) + fib(n-2);
+} 
+int main()
+{
+   cout << fib(7) << endl; 
+}
+```
+using memoization- (technique of reduce the multiple calls of same function)
+
+``` cpp
+code goes here
+```
+
+### 5. nCr using recursion
+Pascal's Triangle
+<img src='./resources/nCrAndPascalsTriangle.jpg'>
+
+```cpp
+#include <iostream>
+
+using namespace std;
+int C(int n, int r)
+{
+    if (r == 0 || n == r)
+        return 1;
+    else
+        return C(n - 1, r - 1) + C(n - 1, r);
+}
+
+int main()
+{
+    cout << C(4, 2); //4C2
+}
+```
+
