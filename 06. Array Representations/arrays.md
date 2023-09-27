@@ -38,3 +38,10 @@ int a[4]; // mem allocated on STACK
 
  Reason why 0 indexed array is preferred in modern languages-
 > Notice, there are 3 operations to be done for 1 indexed arrays, whereas 0 indexed arrays only need to perform 2 operations, 1 extra operation(-) makes it ineffective for large array size, as for n array items, n extra operations of '-' has to be performed by the compiler. In case of 2d arrays, 2 extra '-' operations to be done and even more as the dimension increases.
+
+### ``Pointer to array`` AND ``array of pointers``
+>
+> ``int(*p)[2];`` AND ``int *p[2];`` Both are different statement
+>
+> - `int(*p)[2]` is a pointer to an array of 2 int
+> - `int* p[2]` is an array of 2 pointers to int

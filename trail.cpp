@@ -1,17 +1,56 @@
 #include <iostream>
-#include <array>
-
 using namespace std;
+
 int main()
 {
-    int *A[3];
-    A[0] = new int[4];
-    A[1] = new int[4];
-    A[2] = new int[4];
+    // int a = 1;
+    // int A[4][3];
+    // for (int i = 0; i <= 3; i++)
+    // {
+    //     for (int j = 0; j <= 2; j++)
+    //     {
+    //         A[i][j] = a;
+    //         a++;
+    //     }
+    // }
+    // for (int i = 0; i <= 3; i++)
+    // {
+    //     for (int j = 0; j <= 2; j++)
+    //     {
+    //         cout << *(*(A + i) + j) << ' ' << *(A + i) + j << '\t';
+    //         // cout << A[i][j] << '\t';
+    //     }
+    //     cout << endl;
+    // }
+    // // cout << *(*(A + 2) + 3);
+    // cout << A << endl;
+    // return 0;
 
-    A[1][3] = 14;
-    cout << A[1][3] << endl;
+    int array[5][2] = {{1, 2}, {3, 4}, {5,6}, {7,8}};
+    int(*p)[2];
+    p = array;
 
-    cout << typeid(A).name() << endl; //PPi (pointer to Pointer Int)
-    cout << typeid(A[0]).name() << endl; //Pi (Pointer to int)
+    // for (int i = 0; i < 5; i++)
+    // {
+    //     for (int j = 0; j < 2; j++)
+    //     {
+    //         cout << array[i][j] << "\t";
+    //     }
+    //     cout << endl;
+    // }
+
+    cout << *p[0] << '\t' << *p[1] << '\t' << *p[2] << '\t' << *p[3];
+    // printf("The address of array[0][0] is %p \n",&array[0][0]);
+    // printf("The address of *p is %p \n",*p);
+
+    // printf("The address of array[1][0] is %p \n",&array[1][0]);
+    // printf("The address of *(p+1) is %p \n",*(p+1));
+
+    // printf("The value of array[0][0] is %d \n",array[0][0]);
+    // printf("The value of **p is %d \n",**p);
+
+    // printf("The value of array[0][1] is %d \n",array[0][1]);
+    // printf("The value of *((*p)+1) is %d \n",*((*p)+1));
+
+    return 0;
 }
