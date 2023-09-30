@@ -1,22 +1,23 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-struct array{
-    int A[20];
-    int size;
-    int length;
-};    
-void Display(int A[],int size){
-    for(int i=0;i <size; i++){
-        cout << A[i] << "\t";
-    }
-}
 int main()
 {
-    struct array arr = {{1,2,3,4,5},20,5};
+    string str = "aadarsshhh";
+    map<char, int> a;
+    multiset<int> b;
+    for (auto i : str)
+    {
+        b.insert(i);
+    }
 
-    Display(arr.A,arr.size);
-    return 0;
+    for (auto i : b)
+    {
+        a[i] = b.count(i);
+    }
 
-
+    for (auto i : a)
+    {
+        cout << i.first << ": " << i.second << " times" << endl;
+    }
 }
