@@ -1,23 +1,25 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
 
 int main()
 {
-    string str = "aadarsshhh";
-    map<char, int> a;
-    multiset<int> b;
-    for (auto i : str)
-    {
-        b.insert(i);
-    }
+    struct Node *p;   // stored in stack
+    struct Node *pos; // for traversing
+    p = new Node;
+    pos = p;
 
-    for (auto i : b)
-    {
-        a[i] = b.count(i);
-    }
+    p->data = 10;
+    p->next = nullptr;
 
-    for (auto i : a)
+    while (pos != nullptr)
     {
-        cout << i.first << ": " << i.second << " times" << endl;
+        cout << pos->data << " ";
+        pos = pos->next;
     }
 }
