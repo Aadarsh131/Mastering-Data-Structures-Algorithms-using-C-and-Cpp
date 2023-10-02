@@ -2,7 +2,8 @@
     "files.associations": {
         "ostream": "cpp",
         "bitset": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "new": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
