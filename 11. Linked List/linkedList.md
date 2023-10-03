@@ -153,7 +153,7 @@ p = linearSearchAndMoveToFront(p, 6);
 Display_Loop(p); //6 5 1 2 3 4 
 ```
 
-## Insert Node at specified position *(only when list is already present)*
+## Insert Node at specific position
 ```cpp
 struct Node *temp = p;
 struct Node *newNode = new Node{data : value, next : nullptr};
@@ -199,7 +199,7 @@ Display_Loop(p);
 //1 999 2 3 4 5 6 800 
 ```
 
-## Insert At Sorted List
+## Insert in Sorted List
 ```cpp
 void InsertAtSortedList(Node *&p, int value)
 {
@@ -241,4 +241,157 @@ Display_Loop(z); //-1 0 2 4 5
 InsertAtSortedList(z, -2);
 Display_Loop(z); //-2 -1 0 2 4 5
 
+```
+
+## Delete at index
+
+```cpp
+// will return the deleted node's data, else will return -1
+int DeleteNodeOfPos(Node *&p, int pos)
+{
+    // index 0 and below is not allowed
+    if (pos <= 0)
+    {
+        cout << "Deletion of index 0 and below is not allowed \t";
+        return -1;
+    }
+
+    if (pos > CountNodes(p))
+    {
+        cout << "Cannot delete at pos " << pos << ", It is out of the limit(No item present) Total nodes present is/are:" << CountNodes(p) << "\t";
+
+        return -1;
+    }
+    Node *start{p};
+    Node *prev{nullptr};
+    int x;
+
+    if (pos == 1)
+    {
+        p = p->next;
+        x = start->data;
+        start->next = nullptr; // is this step required?
+        delete start;
+        cout << "Node deleted with data value: ";
+        return x;
+    }
+
+    for (int i = 1; i < pos; i++)
+    { // for pos 2+
+        prev = start;
+        start = start->next;
+    }
+    prev->next = start->next;
+    x = start->data;
+    delete start; // should i do start->next = nullptr first? to avoid mem leak
+    cout << "Node deleted with data value: ";
+    return x;
+}
+```
+```cpp
+//Before: -2 -1 0 2 4 5 6 
+cout << DeleteNodeOfPos(z, 0) << endl;
+cout << DeleteNodeOfPos(z, 10) << endl;
+cout << DeleteNodeOfPos(z, 2) << endl;
+cout << DeleteNodeOfPos(z, 1) << endl;
+Display_Loop(z);
+
+/*
+ Deletion of index 0 and below is not allowed    -1
+Cannot delete at pos 10, It is out of the limit(No item present) Total nodes present is/are:7   -1
+Node deleted with data value: -1
+Node deleted with data value: -2
+0 2 4 5 6 
+*/
+```
+
+## Check if sorted
+
+```cpp
+bool isSorted(Node *p)
+{
+    int x = std::numeric_limits<int>::min();// comparing with the smallest int value
+
+    // if list is empty print msg
+    if (p == nullptr)
+    {
+        cout << "list is empty ";
+        return 0;
+    }
+    while (p != nullptr)
+    {
+        if (x > p->data)
+        {
+            cout << "not sorted ";
+            return 0;
+        }
+        x = p->data;
+        p = p->next;
+    }
+    cout << "sorted ";
+    return 1;
+}
+```
+
+
+## Remove Duplicates in sorted list
+```cpp
+// remove duplicates in the sorted list (if found)
+void removeDuplicateInSortedList(Node *&p)
+{
+    // assuming the list is sorted, and not empty
+
+    Node *q = p->next;
+    Node *start = p;
+
+    while (q != nullptr)
+    {
+        if (q->data == start->data)
+        {
+            start->next = q->next;
+            delete q;
+            q = start->next;
+        }
+        else
+        {
+            start = q;
+            q = q->next;
+        }
+    }
+}
+```
+```cpp
+//Before: -1 0 0 0 0 3 3 3 3 4 4 (sorted)
+removeDuplicateInSortedList(p);
+Display(p); // -1 0 3 4 
+```
+
+## Reverse a Linked List
+  1. by changing just the elements
+
+       > changing the integer type linked list data is easy, but changing a large structure is stupidity, easiest way is to just change the links
+
+  2. by changing just the links (Preferred and Recommended)
+```cpp
+//changing the links(not the elements)
+struct Node *ReverseLinkedList(struct Node *p)
+{
+    // r <- q <- p (changing q, while keeping a ref to r and p i.e, prev and next node)
+    Node *r{nullptr};
+    Node *q{nullptr};
+
+    while (p != nullptr)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    return q;
+}
+```
+```cpp
+//Before: 0 2 4 5 6 
+p = ReverseLinkedList(p);
+Display(p); // 6 5 4 2 0
 ```
