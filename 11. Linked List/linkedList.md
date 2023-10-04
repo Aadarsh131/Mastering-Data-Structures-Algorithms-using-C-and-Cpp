@@ -369,7 +369,7 @@ Display(p); // -1 0 3 4
 ## Reverse a Linked List
   1. by changing just the elements
 
-       > changing the integer type linked list data is easy, but changing a large structure is stupidity, easiest way is to just change the links
+       > changing  the elements of integer type linked list data is easy, but changing a large structure is stupidity, easiest way is to just change the links
 
   2. by changing just the links (Preferred and Recommended)
 ```cpp
@@ -395,3 +395,114 @@ struct Node *ReverseLinkedList(struct Node *p)
 p = ReverseLinkedList(p);
 Display(p); // 6 5 4 2 0
 ```
+#### using Recursion
+```cpp
+void ReverseLinkedList_Recursion(struct Node *start, Node *tail)
+{
+    if (start != nullptr)
+    {
+        ReverseLinkedList_Recursion(start->next, start);
+        start->next = tail;
+    }
+    else
+    {
+        p = tail;
+    }
+}
+```
+```cpp
+ReverseLinkedList_Recursion(p, nullptr);
+Display(p);
+```
+
+## Concatenate 2 linked list
+```cpp
+struct Node *concatenate2lists(Node *first, Node *second)
+{
+    // very simple, just link the 1st list's last node to 2nd list's first node
+    Node *start = first;
+    while (first->next)
+    {
+        first = first->next;
+    }
+    first->next = second;
+    return start;
+}
+```
+```cpp
+Node *temp;
+temp = concatenate2lists(p, z);
+Display_Loop(temp);
+```
+
+## Merge 2 sorted lists
+```cpp
+Node *merging2sortedlists(Node *first, Node *second)
+{
+    // assuming lists are not empty and sorted in ascending order
+
+    // only once, for setting "start" and "temp" node
+    struct Node *start, *temp;
+    if (first->data < second->data)
+    {
+        start = temp = first;
+
+        first = first->next;
+        temp->next = nullptr;
+    }
+    else
+    {
+        start = temp = second;
+
+        second = second->next;
+        temp->next = nullptr;
+    }
+
+    while (first && second) // OR, while(first != nullptr && second != nullptr)
+    {
+        if (first->data < second->data)
+        {
+            temp->next = first;
+            temp = first;
+            first = first->next;
+            temp->next = nullptr; // required?
+        }
+        else
+        {
+            temp->next = second;
+            temp = second;
+            second = second->next;
+            temp->next = nullptr;
+        }
+    }
+
+    // If there are remaining nodes in either list, append them to the merged list
+    if (first == nullptr)
+        temp->next = second;
+    else
+        temp->next = first;
+
+    return start; // Return the head of the merged list
+}
+```
+```cpp
+//q: -2 -3 9 10
+//z: 0 2 4 5 6
+q = merging2sortedlists(q, z);
+Display(q); // merged: -2 -3 0 2 4 5 6 9 10
+```
+
+## Check for loop in linked list
+
+ There can be 3 ways of checking-
+
+ 1. Keep track of the address of the nodes and if found again while traversing, then list is having loop
+ 
+ 2. Keep track of the elements of the nodes (assuming: the list has all unique elements), if found again while traversing, then the list is having loop
+
+ 3. By keeping a fast and a slow pointer e.g, Pointer 'p' will move one step at a time and Pointer 'q' will move 2 step at a time, if they will meet again while traversing, then list is having loop
+
+ > The last method of slow and fast pointer is effective and recommended.
+
+ ```cpp
+ ```

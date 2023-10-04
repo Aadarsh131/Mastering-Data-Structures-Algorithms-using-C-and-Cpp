@@ -273,7 +273,7 @@ void removeDuplicateInSortedList(Node *&p)
     }
 }
 
-//changing the links(not the elements)
+// changing the links(not the elements)
 struct Node *ReverseLinkedList(struct Node *p)
 {
     // r <- q <- p (changing q, while keeping a ref to r and p i.e, prev and next node)
@@ -289,6 +289,80 @@ struct Node *ReverseLinkedList(struct Node *p)
     }
     return q;
 }
+
+void ReverseLinkedList_Recursion(struct Node *start, Node *tail)
+{
+    if (start != nullptr)
+    {
+        ReverseLinkedList_Recursion(start->next, start);
+        start->next = tail;
+    }
+    else
+    {
+        p = tail;
+    }
+}
+
+Node *concatenate2lists(Node *first, Node *second)
+{
+    // very simple, just link the 1st list's last node to 2nd list's first node
+    Node *start = first;
+    while (first->next)
+    {
+        first = first->next;
+    }
+    first->next = second;
+    return start;
+}
+
+Node *merging2sortedlists(Node *first, Node *second)
+{
+    // assuming lists are not empty and sorted
+
+    // only once, for setting "start" and "temp" node
+    struct Node *start, *temp;
+    if (first->data < second->data)
+    {
+        start = temp = first;
+
+        first = first->next;
+        temp->next = nullptr;
+    }
+    else
+    {
+        start = temp = second;
+
+        second = second->next;
+        temp->next = nullptr;
+    }
+
+    while (first && second) // OR, while(first != nullptr && second != nullptr)
+    {
+        if (first->data < second->data)
+        {
+            temp->next = first;
+            temp = first;
+            first = first->next;
+            temp->next = nullptr; // required?
+        }
+        else
+        {
+            temp->next = second;
+            temp = second;
+            second = second->next;
+            temp->next = nullptr;
+        }
+    }
+
+    // If there are remaining nodes in either list, append them to the merged list
+    if (first == nullptr)
+        temp->next = second;
+    else
+        temp->next = first;
+
+    return start; // Return the head of the merged list
+}
+
 int main()
 {
     struct Node *z{nullptr}; // stored in stack
@@ -344,6 +418,23 @@ int main()
     removeDuplicateInSortedList(z);
     Display_Loop(z);
 
-    z = ReverseLinkedList(z);
-    Display_Loop(z);
+    // z = ReverseLinkedList(z);
+    // Display_Loop(z);
+
+    ReverseLinkedList_Recursion(p, nullptr);
+    Display_Loop(p);
+
+    // p = concatenate2lists(p, z);
+    // Display_Loop(p);
+    cout << endl;
+
+    struct Node *q{nullptr};
+    InsertAtPos(q, -2, 1);
+    InsertAtPos(q, -3, 2);
+    InsertAtPos(q, 9, 3);
+    InsertAtPos(q, 10, 4);
+
+    q = merging2sortedlists(q, z); // assuming q and z are sorted list
+    cout << "After merging: ";
+    Display_Loop(q);
 }

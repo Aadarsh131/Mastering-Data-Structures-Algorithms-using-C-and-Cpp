@@ -170,25 +170,110 @@ struct Node *ReverseLinkedList(struct Node *p)
     return q;
 }
 
-// struct Node *temp{nullptr};
-// void ReverseLinkedList_Recursion(struct Node *p)
-// {
-//     struct Node *tail{nullptr};
-//     struct Node *tail_temp{nullptr};
+void ReverseLinkedList_Recursion(struct Node *start, Node *tail)
+{
+    if (start != nullptr)
+    {
+        ReverseLinkedList_Recursion(start->next, start);
+        start->next = tail;
+    }
+    else
+    {
+        p = tail;
+    }
+}
 
-//     while (p != nullptr)
-//     {
-//         tail = tail_temp;
-//         tail_temp = p;
-//         if (p->next == nullptr)
-//             temp = p;
+Node *concatenate2lists(Node *first, Node *second)
+{
+    // very simple, just link the 1st list's last node to 2nd list's first node
+    Node *start = first;
+    while (first->next)
+    {
+        first = first->next;
+    }
+    first->next = second;
+    return start;
+}
 
-//         ReverseLinkedList_Recursion(p->next);
-//         tail_temp->next = tail;
-//     }
-// }
+Node *merging2sortedlists(Node *first, Node *second)
+{
+    // assuming lists are not empty and sorted
+
+    // only once, for setting "start" and "temp" node
+    struct Node *start, *temp;
+    if (first->data < second->data)
+    {
+        start = temp = first;
+
+        first = first->next;
+        temp->next = nullptr;
+    }
+    else
+    {
+        start = temp = second;
+
+        second = second->next;
+        temp->next = nullptr;
+    }
+
+    while (first && second) // OR, while(first != nullptr && second != nullptr)
+    {
+        if (first->data < second->data)
+        {
+            temp->next = first;
+            temp = first;
+            first = first->next;
+            temp->next = nullptr; // required?
+        }
+        else
+        {
+            temp->next = second;
+            temp = second;
+            second = second->next;
+            temp->next = nullptr;
+        }
+    }
+
+    // If there are remaining nodes in either list, append them to the merged list
+    if (first == nullptr)
+        temp->next = second;
+    else
+        temp->next = first;
+
+    return start; // Return the head of the merged list
+}
+
+bool isHavingLoop(Node *slow)
+{
+    Node *fast{slow};
+
+    while (slow && fast)
+    {
+        slow = slow->next;
+        if (fast->next->next == nullptr)
+        {
+            return 0; // linear
+        }
+        else
+        {
+            fast = fast->next->next;
+        }
+        if (slow == fast)
+        {
+            return 1; // loop
+        }
+    }
+    return 0; // linear(not having loop)
+}
+
 int main()
 {
+    Node *q;
+    InsertAtPos(q, -2, 1);
+    InsertAtPos(q, -3, 2);
+    InsertAtPos(q, 9, 3);
+    InsertAtPos(q, 10, 4);
+
     InsertAtPos(p, 0, 1);
     InsertAtPos(p, -1, 0);
     InsertAtPos(p, 1, 3);
@@ -205,6 +290,11 @@ int main()
     // removeDuplicateInSortedList(p);
     // Display(p);
     // p = ReverseLinkedList(p);
-    // ReverseLinkedList_Recursion(p);
-    // Display(temp);
+    // ReverseLinkedList_Recursion(p, nullptr);
+    // Display(p);
+
+    // p = merging2sortedlists(p, q);
+    // Display(p);
+
+    cout << isHavingLoop(p);
 }
