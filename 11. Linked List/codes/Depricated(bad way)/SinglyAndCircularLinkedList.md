@@ -1,3 +1,5 @@
+- [Basic LL creation](#basic-creation-of-linked-list)
+- [Understanding: `Node *&p`](#understanding-what-is-node-p)
 ## Self referential structure
 ```cpp
 struct Node{
@@ -199,8 +201,55 @@ Display_Loop(p);
 //1 999 2 3 4 5 6 800 
 ```
 
+## Understanding what is `Node *&p`-
+lets go to basics of reference-
+```cpp
+#include <iostream>
+
+int main()
+{
+    /* NOTE: DANGEROUS TO WORK WITH TWO REFERENCES TO SAME DATA AT A TIME (but doing it for learning purposes)*/
+    int data = 10;
+    int *x = &data;
+    int *&a = x;
+    int *&b = a;
+
+    // changing the data present at the address
+    *a = 9;
+    std::cout << *x << "," << *a << "," << *b << "\t";   // Output: 9,9,9
+    std::cout << x << "," << a << "," << b << std::endl; // Output: 0x7fffffffd708,0x7fffffffd708,0x7fffffffd708
+
+    // Or, changing one of the ref variable to point to some different address
+    int n = 8;
+    a = &n;
+    std::cout << *x << "," << *a << "," << *b << "\t";   // Output: 8,8,8
+    std::cout << x << "," << a << "," << b << std::endl; // Output: 0x7fffffffd70c,0x7fffffffd70c,0x7fffffffd70c
+}
+```
+
+>**NOTE:** `*` here is not acting as a dereference operator.  
+>```int *&a = x;``` is equivalent to  ```int* (&a) = x;``` meaning `a` is a ref (hence, `&a`) to the `x` which is of type pointer to int hence the `int*`
+
+we can see that `x`, `a` and `b` are just pointing to the same memory location eveytime.  
+But what if we do something like this-
+```cpp
+    int data = 10;
+    int *x = &data;
+    int *&a = x;
+    int *b = a; //instead of int *&b=a;
+
+    //if we change, `x` or `a` which are reference to same data unlike `b`(which is just a normal pointer), then we would see both `x` or `a` to point to the new data as expected but `b` is still pointed to the same data because it was not a ref, rather it was a normal pointer pointing to the original data (which was val at &a, which was val at &data, which was 10)
+    int n = 8;
+    x = *n; //Or, a = *n;
+    
+    std::cout << *x << "," << *a << "," << *b << "\t";   // Output: 8,8,10
+    std::cout << x << "," << a << "," << b << std::endl; //0x7fffffffd70c,0x7fffffffd70c,0x7fffffffd708
+```
+
+
 ## Insert in Sorted List
 ```cpp
+// `Node *&p` is eq. to `Node* (&p)`, i.e, p is a reference to the pointer to Node type
 void InsertAtSortedList(Node *&p, int value)
 {
     Node *start = p;
@@ -545,7 +594,7 @@ cout << isHavingLoop(head) << endl;
         - this representation is made or is based on the argument that even the empty node should be circular in a circular ll
   
   > 2 representations-
-    <img src='./src/2circularLLrepresentation.jpg'>
+    <img src='../../img resources/2circularLLrepresentation.jpg'>
     - in the 2nd representation, when the list is empty, the `head` node (having no data) will be pointing to itself simulating the list being circular even if list is empty.
 
     #### we will be using the 1st representation (which is generally used)

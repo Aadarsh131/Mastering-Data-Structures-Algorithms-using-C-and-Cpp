@@ -1,0 +1,1 @@
+change the src folder to img resources and also reconfigure the imagae src tag
