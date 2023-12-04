@@ -5,86 +5,38 @@ implementation using-
 
 **NOTE:** insert from the side where the time complexity remains `O(1)`
 
-1. Using Array
+1. #### <u>using Array- </u> 
+    > Implementations in-
+    >- [basic C++ (from the tutorial)](./codes/stack.cpp)
+    >- [C++ (from chatgpt)](./codes/stack_chatgpt.cpp)  
+    >- [go](./codes/stack.go)
+
+    > Important to know-  
+    > [how to remove an item from a slice in go](./importants/remvoingFromSlice.go)
+    
+    
+2. #### <u> using LinkedList-</u>  
+    The time complexity would remain **O(1)**, if we insert from the *List head* side-
+    <img src="./img resources/stackUsingLL.png">
+
+    > Implementations in-
+    >- [C++ (from tutorial)](./codes/stack_usingLL.cpp)
+    >- [Go](./codes/stack_usingLL.go)
+
+    Lets suppose we have this dangerous code, we'll see its not so dangerous as we thought until we are bare metal. 
+
     ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-
-    struct Stack
+    Node *newNode = new Node;
+    while (true)
     {
-        int size;
-        int top;
-        char *s;
-    };
-
-    void push(Stack &s, int value)
-    {
-        if (s.top == s.size - 1)
-            cout << "stack is full" << endl;
-        else
-        {
-            s.top++;
-            s.s[s.top] = value;
-        }
-    }
-
-    void pop(Stack &s)
-    {
-        if (s.top == -1)
-            cout << "stack is empty" << endl;
-        else
-        {
-            s.s[s.top] = ' ';
-            s.top--;
-        }
-    }
-
-    void peek(Stack &s, int pos)
-    {
-        if (pos <= 0)
-            cout << "cannot index zero or negative number" << endl;
-        else if (pos > s.top + 1)
-        {
-            cout << "connot peek beyond the stack size" << endl;
-        }
-        else
-        {
-            cout << s.s[s.top - pos + 1] << endl;
-        }
-    }
-
-    void display(Stack &s)
-    {
-        for (int i = s.size - 1; i >= 0; i--)
-        {
-            cout << s.s[i] << " ";
-        }
-        cout << endl;
-    }
-
-    int main()
-    {
-        Stack st;
-        cout << "Enter the size of stack" << endl;
-        // scanf("%d", &st.size);
-        cin >> st.size;
-        st.s = new char[st.size];
-        st.top = -1;
-
-        push(st, 'c');
-        push(st, 'd');
-        push(st, 't');
-        push(st, 't');
-
-        display(st);
-
-        pop(st);
-        display(st);
-
-        peek(st, 3);
+        newNode = new Node; //should throw and error (for memory overflow case) in this infinte loop, but it doesn't, because of the OOM killer (out of memory killer) implemented in the linux
+        std::cout << newNode->data;
     }
     ```
-2. using linkedList
-    ```cpp
-    printf("Easier than you think");
-    ```
+   >Surpringly!!! `newNode` will always point to a valid data, meaning it is never a `nullptr`, but how is that possible?  
+   >That is happening because of the `OOM killer` (I am on linux btw) of the linux (maybe different term for different OS).
+   >
+   >
+   >So, what I just saw that my CPU usage was not going above 99.8%, infact it is fluctuating frequently revolving around 99.6% to 99.8%, this might be an example of OOM killer helping us not to go out of bound memory (making sure the pointer always stores a valid data), and so the `new` (which should throw execption error when heap is full) is never coming across the memory overflow case and hence we see no exception being thrown.
+   >
+   >Ofcouse, now if we are bare metal with no OS, we would see the compiler throw that error.
