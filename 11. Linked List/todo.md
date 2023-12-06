@@ -1,1 +1,2 @@
-change the src folder to img resources and also reconfigure the imagae src tag
+reconfigure the imagae src tag
+properly arrange the folder structure
