@@ -29,5 +29,11 @@ implementation using-
 ## Example Problems using Stack
 
 #### 1. Paranthesis matching
-- [Basic solution](./codes/problem_solution/basicParanthesis.cpp)
-- [Solution (considering multiple paranthesis types)](./codes/problem_solution/paranthesis_multipleTypes.cpp)
+- Basic solution
+    - [C++](./codes/problem_solution/basicParanthesis.cpp)
+- Solution (considering multiple paranthesis types)
+    - [Go](./codes/problem_solution/paranthesis_multipleTypes.go)
+
+#### 2. Infix to Postfix
+- Basic solution
+    - [C++](./codes/problem_solution/toPostfix.cpp)
